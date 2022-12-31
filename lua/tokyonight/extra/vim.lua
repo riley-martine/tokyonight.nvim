@@ -41,7 +41,7 @@ let g:colors_name = 'theme_name'
 " call s:HL('Normal', s:palette.fg, s:palette.bg)
 
 " Support for non-truecolor has been removed. If reimplementing, see:
-" https://github.com/ghifarit53/tokyonight-vim
+" https://github.com/ghifarit53/tokyonight-vim/blob/4e82e0f0452a6ce8f387828ec71013015515035a/colors/tokyonight.vim#L91
 function! s:HL(group, fg, bg, ...)
   let hl_string = [
         \ 'highlight', a:group,
@@ -65,7 +65,7 @@ function! s:HL(group, fg, bg, ...)
     call add(hl_string, 'cterm=NONE')
   endif
   if a:0 >= 2
-    call add(hl_string, 'guisp=' . a:2[0])
+    call add(hl_string, 'guisp=' . a:2)
   endif
   execute join(hl_string, ' ')
 endfunction
