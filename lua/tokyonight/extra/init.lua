@@ -1,7 +1,7 @@
 local M = {}
 
 local function write(str, fileName)
-  print("[write] extra/" .. fileName)
+  print("[write] extras/" .. fileName)
   vim.fn.mkdir(vim.fs.dirname("extras/" .. fileName), "p")
   local file = io.open("extras/" .. fileName, "w")
   file:write(str)
