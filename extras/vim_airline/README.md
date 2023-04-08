@@ -1,10 +1,20 @@
 # Vim Airline
 
-This provides support for the `vim-airline` plugin.
+This provides support for the [`vim-airline`][airline] plugin.
 
-1. `mkdir -p ~/.vim/autoload/airline/themes`
+## Installing
 
-1. Copy your desired theme in: `cp extras/vim_airline/tokyonight_day.vim
-   ~/.vim/autoload/airline/themes/tokyonight_day.vim`
+Copy the theme files into your airline themes directory:
 
-1. Set your theme: `let g:airline_theme = "tokyonight_day"`
+```shell
+mkdir -p ~/.vim/autoload/airline/themes`
+cp extras/vim_airline/*.vim ~/.vim/autoload/airline/themes/
+```
+
+Set your theme:
+
+```vimscript
+let g:airline_theme = 'tokyonight_day'
+```
+
+[airline]: https://github.com/vim-airline/vim-airline

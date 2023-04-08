@@ -6,7 +6,7 @@ local M = {}
 
 --- @param colors ColorScheme
 function M.generate(colors)
-  colors._style_name = colors._style_name:lower():gsub("tokyo night ", "tokyonight_")
+  colors._style_name = "tokyonight_" .. colors._style_name:lower():match(" (%w+)$")
 
   return util.template(M.template, colors)
 end
@@ -31,7 +31,8 @@ function! airline#themes#${_style_name}#refresh()
   let s:airline_mode_visual   = [ '${bg_statusline}', '${purple}', 0, 0 ]
   let s:airline_mode_inactive = [ '${fg_dark}', '${bg}', 0, 0 ]
 
-  let s:airline_info  = [ '${fg_dark}', '${bg}', 0, 0 ]
+  "let s:airline_info  = [ '${fg_dark}', '${bg}', 0, 0 ]
+  let s:airline_info  = [ '${blue}', '${fg_gutter}', 0, 0 ]
   let s:airline_statusline = [ '${fg_dark}', '${bg_highlight}', 0, 0 ]
 
   function! s:tokyonight_color_map(mode)

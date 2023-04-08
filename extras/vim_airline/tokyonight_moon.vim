@@ -17,7 +17,8 @@ function! airline#themes#tokyonight_moon#refresh()
   let s:airline_mode_visual   = [ '#1e2030', '#fca7ea', 0, 0 ]
   let s:airline_mode_inactive = [ '#828bb8', '#222436', 0, 0 ]
 
-  let s:airline_info  = [ '#828bb8', '#222436', 0, 0 ]
+  "let s:airline_info  = [ '#828bb8', '#222436', 0, 0 ]
+  let s:airline_info  = [ '#82aaff', '#3b4261', 0, 0 ]
   let s:airline_statusline = [ '#828bb8', '#2f334d', 0, 0 ]
 
   function! s:tokyonight_color_map(mode)

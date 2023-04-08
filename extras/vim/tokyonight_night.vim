@@ -12,9 +12,9 @@ if exists('syntax_on')
 endif
 
 let s:t_Co = exists('&t_Co') && !empty(&t_Co) && &t_Co > 1 ? &t_Co : 2
-let s:tmux = executable('tmux') && $TMUX !=# ''
 
-let g:colors_name = 'tokyo night'
+let g:colors_name = 'tokyonight_night'
+set background=dark
 " }}}
 
 " Function: {{{
@@ -33,17 +33,8 @@ function! s:HL(group, fg, bg, ...)
         \ 'guibg=' . a:bg,
         \ ]
   if a:0 >= 1
-    if a:1 ==# 'undercurl'
-      if !s:tmux
-        call add(hl_string, 'gui=undercurl')
-      else
-        call add(hl_string, 'gui=underline')
-      endif
-      call add(hl_string, 'cterm=underline')
-    else
-      call add(hl_string, 'gui=' . a:1)
-      call add(hl_string, 'cterm=' . a:1)
-    endif
+    call add(hl_string, 'gui=' . a:1)
+    call add(hl_string, 'cterm=' . a:1)
   else
     call add(hl_string, 'gui=NONE')
     call add(hl_string, 'cterm=NONE')
