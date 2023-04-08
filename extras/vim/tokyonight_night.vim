@@ -90,12 +90,12 @@ let s:palette = {
   \ 'fg_float': '#c0caf5',
   \ 'fg_gutter': '#3b4261',
   \ 'fg_sidebar': '#a9b1d6',
-  \ 'gitSigns_add': '#399a96',
-  \ 'gitSigns_change': '#6382bd',
-  \ 'gitSigns_delete': '#c25d64',
-  \ 'git_add': '#4097a3',
-  \ 'git_change': '#506d9b',
-  \ 'git_delete': '#c47981',
+  \ 'gitSigns_add': '#266d6a',
+  \ 'gitSigns_change': '#526c9e',
+  \ 'gitSigns_delete': '#b2555b',
+  \ 'git_add': '#2c6c75',
+  \ 'git_change': '#6183b9',
+  \ 'git_delete': '#914c54',
   \ 'git_ignore': '#545c7e',
   \ 'green': '#9ece6a',
   \ 'green1': '#73daca',
@@ -152,7 +152,7 @@ call s:HL('BufferInactiveMod', '#a58354', '#16161e')
 call s:HL('BufferInactiveSign', '#27a1b9', '#16161e')
 call s:HL('BufferInactiveTarget', '#f7768e', '#16161e')
 call s:HL('BufferInactiveWARN', '#a58354', '#16161e')
-call s:HL('BufferLineIndicatorSelected', '#506d9b', 'NONE')
+call s:HL('BufferLineIndicatorSelected', '#6183b9', 'NONE')
 call s:HL('BufferOffset', '#737aa2', '#16161e')
 call s:HL('BufferTabpageFill', '#737aa2', '#16161e')
 call s:HL('BufferTabpages', 'NONE', '#16161e')
@@ -240,12 +240,12 @@ call s:HL('FoldColumn', '#565f89', '#1a1b26')
 call s:HL('Folded', '#7aa2f7', '#3b4261')
 call s:HL('Foo', '#ff007c', '#ff007c')
 call s:HL('Function', '#7aa2f7', 'NONE')
-call s:HL('GitGutterAdd', '#399a96', 'NONE')
-call s:HL('GitGutterChange', '#6382bd', 'NONE')
-call s:HL('GitGutterDelete', '#c25d64', 'NONE')
-call s:HL('GitSignsAdd', '#399a96', 'NONE')
-call s:HL('GitSignsChange', '#6382bd', 'NONE')
-call s:HL('GitSignsDelete', '#c25d64', 'NONE')
+call s:HL('GitGutterAdd', '#266d6a', 'NONE')
+call s:HL('GitGutterChange', '#526c9e', 'NONE')
+call s:HL('GitGutterDelete', '#b2555b', 'NONE')
+call s:HL('GitSignsAdd', '#266d6a', 'NONE')
+call s:HL('GitSignsChange', '#526c9e', 'NONE')
+call s:HL('GitSignsDelete', '#b2555b', 'NONE')
 call s:HL('GlyphPalette1', '#db4b4b', 'NONE')
 call s:HL('GlyphPalette2', '#9ece6a', 'NONE')
 call s:HL('GlyphPalette3', '#e0af68', 'NONE')
@@ -377,9 +377,9 @@ call s:HL('NeoTreeDimText', '#3b4261', 'NONE')
 call s:HL('NeoTreeNormal', '#a9b1d6', '#16161e')
 call s:HL('NeoTreeNormalNC', '#a9b1d6', '#16161e')
 call s:HL('NeogitBranch', '#bb9af7', 'NONE')
-call s:HL('NeogitDiffAddHighlight', '#4097a3', '#20303b')
+call s:HL('NeogitDiffAddHighlight', '#2c6c75', '#20303b')
 call s:HL('NeogitDiffContextHighlight', '#a9b1d6', '#2b2f44')
-call s:HL('NeogitDiffDeleteHighlight', '#c47981', '#37222c')
+call s:HL('NeogitDiffDeleteHighlight', '#914c54', '#37222c')
 call s:HL('NeogitHunkHeader', '#c0caf5', '#292e42')
 call s:HL('NeogitHunkHeaderHighlight', '#7aa2f7', '#3b4261')
 call s:HL('NeogitRemote', '#9d7cd8', 'NONE')
@@ -447,9 +447,9 @@ call s:HL('NotifyWARNBorder', '#55473a', '#1a1b26')
 call s:HL('NotifyWARNIcon', '#e0af68', 'NONE')
 call s:HL('NotifyWARNTitle', '#e0af68', 'NONE')
 call s:HL('NvimTreeFolderIcon', '#7aa2f7', 'NONE')
-call s:HL('NvimTreeGitDeleted', '#c47981', 'NONE')
-call s:HL('NvimTreeGitDirty', '#506d9b', 'NONE')
-call s:HL('NvimTreeGitNew', '#4097a3', 'NONE')
+call s:HL('NvimTreeGitDeleted', '#914c54', 'NONE')
+call s:HL('NvimTreeGitDirty', '#6183b9', 'NONE')
+call s:HL('NvimTreeGitNew', '#2c6c75', 'NONE')
 call s:HL('NvimTreeImageFile', '#a9b1d6', 'NONE')
 call s:HL('NvimTreeIndentMarker', '#3b4261', 'NONE')
 call s:HL('NvimTreeNormal', '#a9b1d6', '#16161e')
@@ -539,14 +539,14 @@ call s:HL('YankyPut', 'NONE', 'NONE')
 call s:HL('YankyYanked', 'NONE', 'NONE')
 call s:HL('debugBreakpoint', '#0db9d7', '#192b38')
 call s:HL('debugPC', 'NONE', '#16161e')
-call s:HL('diffAdded', '#4097a3', 'NONE')
-call s:HL('diffChanged', '#506d9b', 'NONE')
+call s:HL('diffAdded', '#2c6c75', 'NONE')
+call s:HL('diffChanged', '#6183b9', 'NONE')
 call s:HL('diffFile', '#7aa2f7', 'NONE')
 call s:HL('diffIndexLine', '#bb9af7', 'NONE')
 call s:HL('diffLine', '#565f89', 'NONE')
 call s:HL('diffNewFile', '#ff9e64', 'NONE')
 call s:HL('diffOldFile', '#e0af68', 'NONE')
-call s:HL('diffRemoved', '#c47981', 'NONE')
+call s:HL('diffRemoved', '#914c54', 'NONE')
 call s:HL('healthError', '#db4b4b', 'NONE')
 call s:HL('healthSuccess', '#73daca', 'NONE')
 call s:HL('healthWarning', '#e0af68', 'NONE')

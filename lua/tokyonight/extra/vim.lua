@@ -4,17 +4,6 @@ local M = {}
 
 --- @param colors ColorScheme
 function M.generate(colors)
-  local function deepcopy(tbl)
-    local ret = tbl
-    if type(tbl) == "table" then
-      ret = {}
-      for key, value in pairs(tbl) do
-        ret[key] = deepcopy(value)
-      end
-    end
-    return ret
-  end
-
   local ret = [[
 " -----------------------------------------------------------------------------
 " Name:         Tokyo Night
@@ -74,7 +63,7 @@ endfunction
 " }}}
 ]]
 
-  vimcolors = vim.deepcopy(colors)
+  local vimcolors = vim.deepcopy(colors)
   local style_name = vimcolors._style_name
   vimcolors._upstream_url = nil
   vimcolors._style_name = nil
@@ -117,7 +106,7 @@ let s:palette = {
 ]]
 
   -- get sorted keys for highlights
-  local hl = deepcopy(require("tokyonight.theme").setup().highlights)
+  local hl = vim.deepcopy(require("tokyonight.theme").setup().highlights)
   local hlgroups = {}
   for k in pairs(hl) do
     table.insert(hlgroups, k)

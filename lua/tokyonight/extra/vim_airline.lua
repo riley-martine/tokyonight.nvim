@@ -5,17 +5,6 @@ local M = {}
 
 --- @param colors ColorScheme
 function M.generate(colors)
-  local function deepcopy(tbl)
-    local ret = tbl
-    if type(tbl) == "table" then
-      ret = {}
-      for key, value in pairs(tbl) do
-        ret[key] = deepcopy(value)
-      end
-    end
-    return ret
-  end
-
   local ret = [[
 " -----------------------------------------------------------------------------
 " Name:         Tokyo Night
