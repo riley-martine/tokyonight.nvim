@@ -6,11 +6,13 @@ local M = {}
 
 --- @param colors ColorScheme
 function M.generate(colors)
+  colors._style_name = colors._style_name:lower():gsub("tokyo night ", "tokyonight_")
+
   local ret = [[
 " -----------------------------------------------------------------------------
 " Name:         Tokyo Night
 " Description:  A dark and light Vim theme that celebrates the lights of downtown Tokyo at night (Based on the VS Code version of the theme)
-" Maintainer:   https://github.com/folke/tokyonight.nvim
+" Upstream:     ${_upstream_url}
 " License:      Apache-2.0
 " -----------------------------------------------------------------------------
 
@@ -23,7 +25,7 @@ endif
 let s:t_Co = exists('&t_Co') && !empty(&t_Co) && &t_Co > 1 ? &t_Co : 2
 let s:tmux = executable('tmux') && $TMUX !=# ''
 
-let g:colors_name = '{_style_name}'
+let g:colors_name = '${_style_name}'
 " }}}
 
 " Function: {{{
@@ -31,8 +33,8 @@ let g:colors_name = '{_style_name}'
 " call s:HL(group, foreground, background, gui, guisp)
 "
 " E.g.:
-" call s:HL('Normal', s:palette.fg, s:palette.bg)
-
+"   call s:HL('Normal', s:palette.fg, s:palette.bg)
+"
 " Support for non-truecolor has been removed. If reimplementing, see:
 " https://github.com/ghifarit53/tokyonight-vim/blob/4e82e0f0452a6ce8f387828ec71013015515035a/colors/tokyonight.vim#L91
 function! s:HL(group, fg, bg, ...)
@@ -63,11 +65,7 @@ function! s:HL(group, fg, bg, ...)
   execute join(hl_string, ' ')
 endfunction
 " }}}
-]]
 
-  colors._style_name = colors._style_name:lower():gsub("tokyo night ", "tokyonight_")
-
-  ret = ret .. [[
 " Highlight: {{{
 ]]
 
@@ -86,13 +84,6 @@ endfunction
       local bg = hl[k]["bg"]
       local sp = hl[k]["sp"]
       local style = nil
-
-      if not fg then
-        fg = "NONE"
-      end
-      if not bg then
-        bg = "NONE"
-      end
 
       if hl[k].undercurl then
         style = "undercurl"
@@ -115,7 +106,7 @@ endfunction
         end
       end
 
-      local call = "call s:HL('" .. k .. "', '" .. fg .. "', '" .. bg .. "'"
+      local call = "call s:HL('" .. k .. "', '" .. (fg or "NONE") .. "', '" .. (bg or "NONE") .. "'"
       if style then
         call = call .. ", '" .. style .. "'"
         if sp then
@@ -133,9 +124,9 @@ endfunction
 
 " Terminal: {{{
 if (has('termguicolors') && &termguicolors) || has('gui_running')
-  let g:terminal_ansi_colors = ['${black}' '${red}' '${green}' '${yellow}'
-        \ '${blue}' '${purple}' '${cyan}' '${fg}' '${black}' '${red}'
-        \ '${green}' '${yellow}' '${blue}' '${purple}' '${cyan}' '${fg}']
+  let g:terminal_ansi_colors = ['${black}', '${red}', '${green}', '${yellow}',
+        \ '${blue}', '${purple}', '${cyan}', '${fg}', '${black}', '${red}',
+        \ '${green}', '${yellow}', '${blue}', '${purple}', '${cyan}', '${fg}']
 endif
 " }}}
 
