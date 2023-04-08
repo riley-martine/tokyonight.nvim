@@ -8,6 +8,13 @@ function M.generate(colors)
     add = util.darken(colors.green2, 0.45),
     delete = util.darken(colors.red1, 0.45),
   }
+  if colors._style_name == "Tokyo Night Day" then
+    colors.delta = {
+      add = util.lighten(colors.green2, 0.45),
+      delete = util.lighten(colors.red1, 0.45),
+    }
+  end
+
   local delta = util.template(
     [[
 [delta]
