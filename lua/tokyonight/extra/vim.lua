@@ -1,4 +1,6 @@
 local M = {}
+-- TODO gutter
+-- TODO "colorscheme" not just auto
 
 --- @param colors ColorScheme
 function M.generate(colors)
@@ -11,6 +13,18 @@ function M.generate(colors)
       end
     end
     return ret
+  end
+
+  local function replace_vars(str, vars)
+    -- Allow replace_vars{str, vars} syntax as well as replace_vars(str, {vars})
+    -- https://lua-users.org/wiki/StringInterpolation
+    if not vars then
+      vars = str
+      str = vars[1]
+    end
+    return (string.gsub(str, "({([^}]+)})", function(whole, i)
+      return vars[i] or whole
+    end))
   end
 
   local ret = [[
@@ -30,7 +44,7 @@ endif
 let s:t_Co = exists('&t_Co') && !empty(&t_Co) && &t_Co > 1 ? &t_Co : 2
 let s:tmux = executable('tmux') && $TMUX !=# ''
 
-let g:colors_name = 'theme_name'
+let g:colors_name = '{theme_name}'
 " }}}
 
 " Function: {{{
@@ -72,9 +86,8 @@ endfunction
 " }}}
 ]]
 
-  ret = string.gsub(ret, "theme_name", string.gsub(string.lower(colors._style_name), "tokyo night ", "tokyonight_"))
-
   colors = vim.deepcopy(colors)
+  local style_name = colors._style_name
   colors._upstream_url = nil
   colors._style_name = nil
 
@@ -109,6 +122,9 @@ let s:palette = {
 \ }
 " }}}
 
+]]
+
+  ret = ret .. [[
 " Highlight: {{{
 ]]
 
@@ -123,6 +139,7 @@ let s:palette = {
   -- highlight groups
   -- call s:HL('ErrorMsg', s:palette.error, s:palette.none, 'bold,underline')
   -- call s:HL('WarningMsg', s:palette.warning, s:palette.none)
+  -- TODO use palette?
   for _, k in ipairs(hlgroups) do
     if not k:find("^@") then
       local fg = hl[k]["fg"]
@@ -198,6 +215,7 @@ endif
 " vim: set sw=2 ts=2 sts=2 et tw=80 ft=vim fdm=marker fmr={{{,}}}:
 ]]
 
+  ret = replace_vars({ ret, theme_name = string.gsub(string.lower(style_name), "tokyo night ", "tokyonight_") })
   return ret
 end
 

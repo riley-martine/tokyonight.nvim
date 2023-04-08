@@ -32,6 +32,7 @@ function M.setup()
     prism = "js",
     windows_terminal = "json",
     vim = "vim",
+    vim_airline = "vim",
   }
   -- map of style to style name
   local styles = {
