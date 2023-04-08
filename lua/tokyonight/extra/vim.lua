@@ -1,3 +1,5 @@
+local util = require("tokyonight.util")
+
 local M = {}
 -- TODO gutter
 -- TODO "colorscheme" not just auto
@@ -21,7 +23,7 @@ endif
 let s:t_Co = exists('&t_Co') && !empty(&t_Co) && &t_Co > 1 ? &t_Co : 2
 let s:tmux = executable('tmux') && $TMUX !=# ''
 
-let g:colors_name = '{theme_name}'
+let g:colors_name = '{_style_name}'
 " }}}
 
 " Function: {{{
@@ -63,43 +65,7 @@ endfunction
 " }}}
 ]]
 
-  local vimcolors = vim.deepcopy(colors)
-  local style_name = vimcolors._style_name
-  vimcolors._upstream_url = nil
-  vimcolors._style_name = nil
-
-  -- flatten sub-tables (git.add -> git_add)
-  for group, v in pairs(vimcolors) do
-    if type(v) == "table" then
-      vimcolors[group] = nil
-      for subgroup, hex in pairs(v) do
-        vimcolors[group .. "_" .. subgroup] = hex
-      end
-    end
-  end
-
-  -- get sorted keys for colors
-  local colornames = {}
-  for k in pairs(vimcolors) do
-    table.insert(colornames, k)
-  end
-  table.sort(colornames)
-
-  ret = ret .. [[
-
-" Palette: {{{
-let s:palette = {
-]]
-
-  for _, k in ipairs(colornames) do
-    ret = ret .. "  \\ '" .. k .. "': '" .. vimcolors[k] .. "',\n"
-  end
-
-  ret = ret .. [[
-\ }
-" }}}
-
-]]
+  colors._style_name = colors._style_name:lower():gsub("tokyo night ", "tokyonight_")
 
   ret = ret .. [[
 " Highlight: {{{
@@ -114,9 +80,6 @@ let s:palette = {
   table.sort(hlgroups)
 
   -- highlight groups
-  -- call s:HL('ErrorMsg', s:palette.error, s:palette.none, 'bold,underline')
-  -- call s:HL('WarningMsg', s:palette.warning, s:palette.none)
-  -- TODO use palette?
   for _, k in ipairs(hlgroups) do
     if not k:find("^@") then
       local fg = hl[k]["fg"]
@@ -134,7 +97,7 @@ let s:palette = {
       if hl[k].undercurl then
         style = "undercurl"
       else
-        styles = {}
+        local styles = {}
         if hl[k].bold then
           table.insert(styles, "bold")
         end
@@ -170,31 +133,16 @@ let s:palette = {
 
 " Terminal: {{{
 if (has('termguicolors') && &termguicolors) || has('gui_running')
-  " Definition
-  let s:terminal = {
-        \ 'black':    s:palette.black,
-        \ 'red':      s:palette.red,
-        \ 'yellow':   s:palette.yellow,
-        \ 'green':    s:palette.green,
-        \ 'cyan':     s:palette.orange,
-        \ 'blue':     s:palette.blue,
-        \ 'purple':   s:palette.purple,
-        \ 'white':    s:palette.fg
-        \ }
-  " Implementation: {{{
-  let g:terminal_ansi_colors = [s:terminal.black, s:terminal.red, s:terminal.green, s:terminal.yellow,
-        \ s:terminal.blue, s:terminal.purple, s:terminal.cyan, s:terminal.white, s:terminal.black, s:terminal.red,
-        \ s:terminal.green, s:terminal.yellow, s:terminal.blue, s:terminal.purple, s:terminal.cyan, s:terminal.white]
-  " }}}
+  let g:terminal_ansi_colors = ['${black}' '${red}' '${green}' '${yellow}'
+        \ '${blue}' '${purple}' '${cyan}' '${fg}' '${black}' '${red}'
+        \ '${green}' '${yellow}' '${blue}' '${purple}' '${cyan}' '${fg}']
 endif
 " }}}
 
 " vim: set sw=2 ts=2 sts=2 et tw=80 ft=vim fdm=marker fmr={{{,}}}:
 ]]
 
-  local theme_name = string.gsub(string.lower(style_name), "tokyo night ", "tokyonight_")
-  ret = string.gsub(ret, "{theme_name}", theme_name)
-  return ret
+  return util.template(ret, colors)
 end
 
 return M

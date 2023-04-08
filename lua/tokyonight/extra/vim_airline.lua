@@ -6,7 +6,7 @@ local M = {}
 
 --- @param colors ColorScheme
 function M.generate(colors)
-  colors._style_name = string.gsub(string.lower(colors._style_name), "tokyo night ", "tokyonight_")
+  colors._style_name = colors._style_name:lower():gsub("tokyo night ", "tokyonight_")
 
   return util.template(M.template, colors)
 end
