@@ -1,7 +1,7 @@
 " -----------------------------------------------------------------------------
 " Name:         Tokyo Night
 " Description:  A dark and light Vim theme that celebrates the lights of downtown Tokyo at night (Based on the VS Code version of the theme)
-" Maintainer:   https://github.com/folke/tokyonight.nvim
+" Upstream:     https://github.com/folke/tokyonight.nvim/raw/main/extras/vim/tokyonight_day.vim
 " License:      Apache-2.0
 " -----------------------------------------------------------------------------
 
@@ -22,8 +22,8 @@ let g:colors_name = 'tokyonight_day'
 " call s:HL(group, foreground, background, gui, guisp)
 "
 " E.g.:
-" call s:HL('Normal', s:palette.fg, s:palette.bg)
-
+"   call s:HL('Normal', s:palette.fg, s:palette.bg)
+"
 " Support for non-truecolor has been removed. If reimplementing, see:
 " https://github.com/ghifarit53/tokyonight-vim/blob/4e82e0f0452a6ce8f387828ec71013015515035a/colors/tokyonight.vim#L91
 function! s:HL(group, fg, bg, ...)
@@ -53,67 +53,6 @@ function! s:HL(group, fg, bg, ...)
   endif
   execute join(hl_string, ' ')
 endfunction
-" }}}
-
-" Palette: {{{
-let s:palette = {
-  \ 'bg': '#e1e2e7',
-  \ 'bg_dark': '#e9e9ec',
-  \ 'bg_float': '#e9e9ec',
-  \ 'bg_highlight': '#c4c8da',
-  \ 'bg_popup': '#e9e9ec',
-  \ 'bg_search': '#7890dd',
-  \ 'bg_sidebar': '#e9e9ec',
-  \ 'bg_statusline': '#e9e9ec',
-  \ 'bg_visual': '#b6bfe2',
-  \ 'black': '#e9e9ed',
-  \ 'blue': '#2e7de9',
-  \ 'blue0': '#7890dd',
-  \ 'blue1': '#188092',
-  \ 'blue2': '#07879d',
-  \ 'blue5': '#006a83',
-  \ 'blue6': '#2e5857',
-  \ 'blue7': '#92a6d5',
-  \ 'border': '#e9e9ed',
-  \ 'border_highlight': '#2496ac',
-  \ 'comment': '#848cb5',
-  \ 'cyan': '#007197',
-  \ 'dark3': '#8990b3',
-  \ 'dark5': '#68709a',
-  \ 'diff_add': '#aecde6',
-  \ 'diff_change': '#d6d8e3',
-  \ 'diff_delete': '#dfccd4',
-  \ 'diff_text': '#92a6d5',
-  \ 'error': '#c64343',
-  \ 'fg': '#3760bf',
-  \ 'fg_dark': '#6172b0',
-  \ 'fg_float': '#3760bf',
-  \ 'fg_gutter': '#a8aecb',
-  \ 'fg_sidebar': '#6172b0',
-  \ 'gitSigns_add': '#399a96',
-  \ 'gitSigns_change': '#6382bd',
-  \ 'gitSigns_delete': '#c25d64',
-  \ 'git_add': '#4097a3',
-  \ 'git_change': '#506d9b',
-  \ 'git_delete': '#c47981',
-  \ 'git_ignore': '#8990b3',
-  \ 'green': '#587539',
-  \ 'green1': '#387068',
-  \ 'green2': '#38919f',
-  \ 'hint': '#118c74',
-  \ 'info': '#07879d',
-  \ 'magenta': '#9854f1',
-  \ 'magenta2': '#d20065',
-  \ 'none': 'NONE',
-  \ 'orange': '#b15c00',
-  \ 'purple': '#7847bd',
-  \ 'red': '#f52a65',
-  \ 'red1': '#c64343',
-  \ 'teal': '#118c74',
-  \ 'terminal_black': '#a1a6c5',
-  \ 'warning': '#8c6c3e',
-  \ 'yellow': '#8c6c3e',
-\ }
 " }}}
 
 " Highlight: {{{
@@ -578,22 +517,9 @@ call s:HL('rainbowcol7', '#7847bd', 'NONE')
 
 " Terminal: {{{
 if (has('termguicolors') && &termguicolors) || has('gui_running')
-  " Definition
-  let s:terminal = {
-        \ 'black':    s:palette.black,
-        \ 'red':      s:palette.red,
-        \ 'yellow':   s:palette.yellow,
-        \ 'green':    s:palette.green,
-        \ 'cyan':     s:palette.orange,
-        \ 'blue':     s:palette.blue,
-        \ 'purple':   s:palette.purple,
-        \ 'white':    s:palette.fg
-        \ }
-  " Implementation: {{{
-  let g:terminal_ansi_colors = [s:terminal.black, s:terminal.red, s:terminal.green, s:terminal.yellow,
-        \ s:terminal.blue, s:terminal.purple, s:terminal.cyan, s:terminal.white, s:terminal.black, s:terminal.red,
-        \ s:terminal.green, s:terminal.yellow, s:terminal.blue, s:terminal.purple, s:terminal.cyan, s:terminal.white]
-  " }}}
+  let g:terminal_ansi_colors = ['#e9e9ed', '#f52a65', '#587539', '#8c6c3e',
+        \ '#2e7de9', '#7847bd', '#007197', '#3760bf', '#e9e9ed', '#f52a65',
+        \ '#587539', '#8c6c3e', '#2e7de9', '#7847bd', '#007197', '#3760bf']
 endif
 " }}}
 

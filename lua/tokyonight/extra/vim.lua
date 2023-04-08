@@ -72,49 +72,50 @@ endfunction
   -- get sorted keys for highlights
   local hl = vim.deepcopy(require("tokyonight.theme").setup().highlights)
   local hlgroups = {}
-  for k in pairs(hl) do
-    table.insert(hlgroups, k)
+  for group_name in pairs(hl) do
+    table.insert(hlgroups, group_name)
   end
   table.sort(hlgroups)
 
   -- highlight groups
-  for _, k in ipairs(hlgroups) do
-    if not k:find("^@") then
-      local fg = hl[k]["fg"]
-      local bg = hl[k]["bg"]
-      local sp = hl[k]["sp"]
-      local style = nil
+  for _, group_name in ipairs(hlgroups) do
+    local group = hl[group_name]
+    if not group_name:find("^@") then
+      local styles = {}
 
-      if hl[k].undercurl then
-        style = "undercurl"
-      else
-        local styles = {}
-        if hl[k].bold then
-          table.insert(styles, "bold")
-        end
-
-        if hl[k].italic or (hl[k].style and hl[k].style.italic) then
-          table.insert(styles, "italic")
-        end
-
-        if hl[k].underline then
-          table.insert(styles, "underline")
-        end
-
-        if #styles > 0 then
-          style = table.concat(styles, ",")
-        end
+      if group.bold then
+        table.insert(styles, "bold")
       end
 
-      local call = "call s:HL('" .. k .. "', '" .. (fg or "NONE") .. "', '" .. (bg or "NONE") .. "'"
-      if style then
-        call = call .. ", '" .. style .. "'"
-        if sp then
-          call = call .. ", '" .. sp .. "'"
+      if group.italic or (group.style and group.style.italic) then
+        table.insert(styles, "italic")
+      end
+
+      if group.underline then
+        table.insert(styles, "underline")
+      end
+
+      if group.undercurl then
+        table.insert(styles, "undercurl")
+      end
+
+      local template = "call s:HL('${group_name}', '${fg}', '${bg}'"
+      if #styles > 0 then
+        template = template .. ", '${style}'"
+        if group["sp"] then
+          template = template .. ", '${sp}'"
         end
       end
-      call = call .. ")\n"
-      ret = ret .. call
+      template = template .. ")\n"
+
+      ret = ret
+        .. util.template(template, {
+          group_name = group_name,
+          fg = (group["fg"] or "NONE"),
+          bg = (group["bg"] or "NONE"),
+          style = table.concat(styles, ","),
+          sp = group["sp"],
+        })
     end
   end
 
