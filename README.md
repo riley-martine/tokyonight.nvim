@@ -289,4 +289,7 @@ How to add a new extra template:
    `lua/tokyonight/extra/init.lua`
 3. in Nvim, run `:lua require("tokyonight.extra").setup()` to generate / update
    extra themes
+   - This can also be done from the repo root via the command line:
+     `nvim --headless +'lua package.path = "./lua/?.lua;" .. package.path;
+     require("tokyonight/extra/init").setup()' +q`
 4. commit the newly created themes under `extra/`
