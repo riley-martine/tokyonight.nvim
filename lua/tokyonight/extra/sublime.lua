@@ -617,7 +617,7 @@ M.template = [[
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#9abdf5</string>
+				<string>${cyan}</string>
 			</dict>
 		</dict>
 		<dict>
@@ -1024,7 +1024,7 @@ M.template = [[
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#9abdf5</string>
+				<string>${cyan}</string>
 			</dict>
 		</dict>
 		<dict>
@@ -1035,7 +1035,7 @@ M.template = [[
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#9abdf5</string>
+				<string>${cyan}</string>
 			</dict>
 		</dict>
 		<dict>
