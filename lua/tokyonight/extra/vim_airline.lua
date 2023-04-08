@@ -16,18 +16,6 @@ function M.generate(colors)
     return ret
   end
 
-  local function replace_vars(str, vars)
-    -- Allow replace_vars{str, vars} syntax as well as replace_vars(str, {vars})
-    -- https://lua-users.org/wiki/StringInterpolation
-    if not vars then
-      vars = str
-      str = vars[1]
-    end
-    return (string.gsub(str, "({([^}]+)})", function(whole, i)
-      return vars[i] or whole
-    end))
-  end
-
   local ret = [[
 " -----------------------------------------------------------------------------
 " Name:         Tokyo Night
@@ -38,44 +26,42 @@ function M.generate(colors)
 " -----------------------------------------------------------------------------
   ]]
 
-  colors = vim.deepcopy(colors)
-  local style_name = colors._style_name
-  colors._upstream_url = nil
-  colors._style_name = nil
+  local vimcolors = vim.deepcopy(colors)
+  local style_name = vimcolors._style_name
+  vimcolors._upstream_url = nil
+  vimcolors._style_name = nil
 
   -- flatten sub-tables (git.add -> git_add)
-  for group, v in pairs(colors) do
+  for group, v in pairs(vimcolors) do
     if type(v) == "table" then
-      colors[group] = nil
+      vimcolors[group] = nil
       for subgroup, hex in pairs(v) do
-        colors[group .. "_" .. subgroup] = hex
+        vimcolors[group .. "_" .. subgroup] = hex
       end
     end
   end
 
   -- get sorted keys for colors
   local colornames = {}
-  for k in pairs(colors) do
+  for k in pairs(vimcolors) do
     table.insert(colornames, k)
   end
   table.sort(colornames)
 
-  local palette = [[
+  ret = ret .. [[
 
 " Palette: {{{
 let s:palette = {
 ]]
 
   for _, k in ipairs(colornames) do
-    ret = ret .. "  \\ '" .. k .. "': '" .. colors[k] .. "',\n"
+    ret = ret .. "  \\ '" .. k .. "': '" .. vimcolors[k] .. "',\n"
   end
 
   ret = ret .. [[
 \ }
 " }}}
 ]]
-
-  ret = ret .. palette
 
   -- TODO better cterm support
   -- right now it has hardcoded and non-theme-specific values, just there
@@ -123,7 +109,8 @@ let g:airline#themes#{theme_name}#palette.visual.airline_term = s:airline_status
 " vim: set sw=2 ts=2 sts=2 et tw=80 ft=vim fdm=marker fmr={{{,}}}:
 ]]
 
-  ret = replace_vars({ ret, theme_name = string.gsub(string.lower(style_name), "tokyo night ", "tokyonight_") })
+  local theme_name = string.gsub(string.lower(style_name), "tokyo night ", "tokyonight_")
+  ret = string.gsub(ret, "{theme_name}", theme_name)
   return ret
 end
 
