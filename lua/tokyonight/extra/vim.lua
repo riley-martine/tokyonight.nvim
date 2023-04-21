@@ -4,6 +4,9 @@ local M = {}
 -- TODO gutter
 -- TODO "colorscheme" not just auto
 -- TODO highlight under cursor not selected
+-- TODO make arroes airline match tmux
+-- TODO compare w neovim and see if why my tmux.conf looks bad
+--   and why fish end blocks are like background highlighted??
 
 --- @param colors ColorScheme
 function M.generate(colors)

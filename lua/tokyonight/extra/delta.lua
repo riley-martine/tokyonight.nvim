@@ -10,7 +10,7 @@ function M.generate(colors)
   }
   if colors._style_name == "Tokyo Night Day" then
     colors.delta = {
-      add = util.lighten(colors.green2, 0.45),
+      add = util.lighten(colors.green2, 0.55),
       delete = util.lighten(colors.red1, 0.45),
     }
   end

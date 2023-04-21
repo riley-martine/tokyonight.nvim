@@ -6,7 +6,7 @@
   line-numbers-minus-style      = "#b2555b"
   plus-style                    = syntax "#aecde6"
   plus-non-emph-style           = syntax "#aecde6"
-  plus-emph-style               = syntax "#a5ced4"
+  plus-emph-style               = syntax "#92c3ca"
   plus-empty-line-marker-style  = syntax "#aecde6"
   line-numbers-plus-style       = "#266d6a"
   line-numbers-zero-style       = "#a8aecb"
